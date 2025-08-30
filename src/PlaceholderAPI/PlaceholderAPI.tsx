@@ -1,4 +1,4 @@
-// src/components/PlaceholderAPI.jsx
+'use client';
 
 import React, { useState, useEffect } from 'react';
 
@@ -38,10 +38,10 @@ const PlaceholderAPI = () => {
 
   return (
     <div>
-      <h2>Posts da API</h2>
-      <ul>
+      <h2>Posts da Placeholder API</h2>
+      <ul className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
         {posts.map((post: any) => (
-          <li key={post.id}>
+          <li key={post.id} className="mb-2 tracking-[-.01em]">
             <h3>{post.title}</h3>
             <p>{post.body}</p>
           </li>
