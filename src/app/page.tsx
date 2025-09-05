@@ -1,5 +1,11 @@
-import PlaceholderAPI from '../PlaceholderAPI/PlaceholderAPI';
+import TreeView from '@/components/TreeView/TreeView';
+import PlaceholderAPI from '../components/PlaceholderAPI/PlaceholderAPI';
 
 export default function Home() {
-  return <PlaceholderAPI />;
+  return (
+    <>
+      <PlaceholderAPI />
+      <TreeView />
+    </>
+  );
 }
