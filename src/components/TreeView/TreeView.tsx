@@ -1,19 +1,39 @@
 'use client';
 import './treeView.css';
-import ListManager from './ListManager';
+import ListManager, { Children } from './ListManager';
 
 const TreeView = () => {
   const list = {
-    parent1: ['coisa', 'coisa2'],
-    parent2: ['coisa'],
-    parent3: ['coisa', 'coisa2', 'coisa3'],
-    parent4: ['coisa', 'coisa2', 'coisa3', 'coisa4', 'coisa5'],
+    coisa1: {
+      text: 'coisa1',
+      icon: ['▶', '▼'], // fechado|aberto
+      defaultState: false,
+      list: {
+        algo1: { text: 'algo1' },
+        algo2: { text: 'algo2' },
+        algo3: { text: 'algo3' },
+      },
+    },
+    coisa2: {
+      text: 'coisa2',
+      icon: ['+', '-'],
+      defaultState: true,
+      list: {
+        algo1: { text: 'algo1' },
+        algo2: { text: 'algo2' },
+        algo3: { text: 'algo3' },
+      },
+    },
   };
+  const randomNumber = Math.random() * 1000;
   return (
-    <div className={'tree-view'!}>
+    <div key={`tree-view-${randomNumber}`} className={'tree-view'!}>
       <h1>Tree View</h1>
-      {Object.keys(list).map((parent: any) => (
-        <ListManager key={parent} parent={parent} list={list} />
+      {Object.values(list).map((childrenObj: Children, index: number) => (
+        <ListManager
+          key={`${randomNumber}-${index}-${childrenObj.text}`}
+          {...childrenObj}
+        />
       ))}
     </div>
   );

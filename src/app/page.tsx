@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <PlaceholderAPI />
-      <TreeView />
+      <TreeView key={'tree-view'} />
     </>
   );
 }
