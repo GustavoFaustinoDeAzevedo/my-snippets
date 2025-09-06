@@ -1,9 +1,10 @@
 'use client';
 import './treeView.css';
-import ListManager, { Children } from './ListManager';
+import ListManager from './ListManager';
+import type { Item, TreeList } from './TreeView.types';
 
 const TreeView = () => {
-  const list = {
+  const list: TreeList = {
     coisa1: {
       text: 'coisa1',
       icon: ['▶', '▼'], // fechado|aberto
@@ -29,11 +30,8 @@ const TreeView = () => {
   return (
     <div key={`tree-view-${randomNumber}`} className={'tree-view'!}>
       <h1>Tree View</h1>
-      {Object.values(list).map((childrenObj: Children, index: number) => (
-        <ListManager
-          key={`${randomNumber}-${index}-${childrenObj.text}`}
-          {...childrenObj}
-        />
+      {Object.values(list).map((item: Item, index: number) => (
+        <ListManager key={`${randomNumber}-${index}-${item.text}`} {...item} />
       ))}
     </div>
   );
