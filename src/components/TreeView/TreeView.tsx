@@ -1,37 +1,45 @@
 'use client';
-import './treeView.css';
+
 import ListManager from './ListManager';
-import type { Item, TreeList } from './TreeView.types';
+import type { Node } from './TreeView.types';
 
 const TreeView = () => {
-  const list: TreeList = {
-    coisa1: {
-      text: 'coisa1',
-      icon: ['▶', '▼'], // fechado|aberto
+  const data: Node[] = [
+    {
+      id: 'coisa1',
+      label: 'coisa1',
+      icon: ['▶', '▼'],
       defaultState: false,
-      list: {
-        algo1: { text: 'algo1' },
-        algo2: { text: 'algo2' },
-        algo3: { text: 'algo3' },
-      },
+      children: [
+        {
+          id: 'algo1',
+          label: 'algo1',
+          defaultState: false,
+          icon: ['+', '-'],
+          children: [{ id: 'algo1', label: 'algo1' }],
+        },
+        { id: 'algo2', label: 'algo2' },
+        { id: 'algo3', label: 'algo3' },
+      ],
     },
-    coisa2: {
-      text: 'coisa2',
-      icon: ['+', '-'],
+    {
+      id: 'coisa2',
+      label: 'coisa2',
+      icon: ['☻', '☺'],
       defaultState: true,
-      list: {
-        algo1: { text: 'algo1' },
-        algo2: { text: 'algo2' },
-        algo3: { text: 'algo3' },
-      },
+      children: [
+        { id: 'algo4', label: 'algo4' },
+        { id: 'algo5', label: 'algo5' },
+        { id: 'algo6', label: 'algo6' },
+      ],
     },
-  };
+  ];
   const randomNumber = Math.random() * 1000;
   return (
-    <div key={`tree-view-${randomNumber}`} className={'tree-view'!}>
-      <h1>Tree View</h1>
-      {Object.values(list).map((item: Item, index: number) => (
-        <ListManager key={`${randomNumber}-${index}-${item.text}`} {...item} />
+    <div key={`tree-view-${randomNumber}`} className={'tree-view'}>
+      <h1 className="text-2xl text-zinc-900 dark:text-zinc-100">Tree View</h1>
+      {data.map((node: Node, index: number) => (
+        <ListManager key={`${randomNumber}-${index}-${node.id}`} {...node} />
       ))}
     </div>
   );

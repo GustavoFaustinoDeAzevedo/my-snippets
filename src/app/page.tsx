@@ -1,4 +1,5 @@
 import TreeView from '@/components/TreeView/TreeView';
+
 import PlaceholderAPI from '../components/PlaceholderAPI/PlaceholderAPI';
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
     <>
       <PlaceholderAPI />
       <TreeView key={'tree-view'} />
+      
     </>
   );
 }

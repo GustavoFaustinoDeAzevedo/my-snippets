@@ -1,8 +1,8 @@
-export type TreeList = Record<string, Item>;
-export type Item = {
-  text: string;
+export type Node = {
+  id: string;
+  label: string;
   icon?: [string, string];
-  list?: TreeList;
+  children?: Node[];
   defaultState?: boolean;
-  children?: React.ReactNode;
+  [key: string]: any;
 };
