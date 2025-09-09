@@ -10,60 +10,60 @@ const ListManager = ({
   children,
   ...props
 }: Node) => {
-  const ref = useRef<HTMLLIElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState<boolean>(defaultState ?? false);
   const handleClick = () => setExpanded((prev) => !prev);
+  const [height, setHeight] = useState<string>('0px');
   const randomNumber = Math.random() * 1000;
-  console.log(props.height);
-  const height = useRef(props.height ?? 0);
-
-  function getTotalHeight(element: HTMLElement): number {
-    height.current += element.scrollHeight; 
-
-    const children = element.querySelectorAll('[data-expanded="true"]');
-    children.forEach((child) => {
-      if (child instanceof HTMLElement) {
-        height.current += child.scrollHeight;
-      }
-    });
-
-    return height.current;
-  }
 
   useEffect(() => {
-    if (ref.current) {
-      const totalHeight = expanded
-        ? getTotalHeight(ref.current)
-        : 0;
-      ref.current.style.maxHeight = `${totalHeight}px`;
+    const el = ref.current;
+    if (!el) return;
+
+    if (expanded) {
+      // Expande suavemente
+      el.style.maxHeight = `${el.scrollHeight}px`;
+      el.style.opacity = '1';
+
+      // Após a transição, libera maxHeight para não travar conteúdo dinâmico
+      const timeout = setTimeout(() => {
+        el.style.maxHeight = 'none';
+      }, 400);
+
+      return () => clearTimeout(timeout);
+    } else {
+      el.style.maxHeight = `${el.scrollHeight}px`;
+      el.style.opacity = '1';
+
+      requestAnimationFrame(() => {
+        el.style.maxHeight = '0px';
+        el.style.opacity = '0';
+      });
     }
   }, [expanded]);
 
   return (
-    <ul
-      className="tree-view__list"
-      key={`ul-${randomNumber}-${id}`}
-      
-    >
-      <li
+    <div className="tree-view__node" key={`ul-${randomNumber}-${id}`}>
+      <div
         onClick={handleClick}
-        className="tree-view__list-label"
+        className="tree-view__node-label"
         key={`title-${randomNumber}-${id}`}
       >
         <div
-          className={`tree-view__list-expandable-icon-${
+          className={`tree-view__node-expandable-icon-${
             expanded ? 'open' : 'close'
           }`}
           data-expanded={expanded}
         ></div>
-        <div className="tree-view__list-icon">{icon?.[expanded ? 1 : 0]}</div>
+        <div className="tree-view__node-icon">{icon?.[expanded ? 1 : 0]}</div>
         <p>{label}</p>
-      </li>
+      </div>
 
-      <li
+      <div
         ref={ref}
-        className={'tree-view__list-children-container'}
-        data-expanded={expanded}
+        className={`tree-view__node-children-container ${
+          expanded ? 'expanded' : ''
+        }`}
       >
         {
           // expanded &&
@@ -72,14 +72,13 @@ const ListManager = ({
               <Fragment key={`children-${randomNumber}-${index}-${node.label}`}>
                 <ListManager
                   key={`${randomNumber}-${index}-${node.id}`}
-                  height={height.current}
                   {...node}
                 />
               </Fragment>
             ))
         }
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 };
 
