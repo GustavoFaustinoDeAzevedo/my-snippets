@@ -1,7 +1,7 @@
 .tree-view {
   font-family: 'Courier New', Courier, monospace;
-  display: grid;
-  grid-template-rows: auto auto;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 50px;
   left: 50px;
@@ -25,21 +25,29 @@
 }
 
 .tree-view__node-children {
+
   margin-left: 20px;
 }
 
 .tree-view__node-label {
-  cursor: pointer;
+  margin-bottom: 0.5rem;
+  /* cursor: pointer; */
   display: flex;
-  -webkit-user-select: none;
-  user-select: none;
+  /* -webkit-user-select: none;
+  user-select: none; */
 }
 
-.tree-view__node-icon {
-
+.tree-view__node-toggle {
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-user-select: none;
+  user-select: none;
   margin-right: 2rem;
-  width: 10px;
-  height: 10px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .triangle {
@@ -61,15 +69,15 @@
 }
 
 .tree-view__node-children-container {
-  /* max-height: 0px; */
-  /* height: 0; */
-  opacity: 0;
+  position: relative;
   overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.8s ease;
-  will-change: max-height, opacity;
-}
 
-.tree-view__node-children-container.expanded {
-  /* opacity: 1; */
+  &.collapsed {
+    display: block;
+  }
+
+  &.hidden {
+    display: none;
+  }
 
 }
