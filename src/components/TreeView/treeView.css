@@ -2,6 +2,8 @@
   font-family: 'Courier New', Courier, monospace;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  justify-content: space-evenly;
   position: absolute;
   top: 50px;
   left: 50px;
@@ -29,7 +31,7 @@
   margin-left: 20px;
 }
 
-.tree-view__node-label {
+.tree-view__node-leaf {
   margin-bottom: 0.5rem;
   /* cursor: pointer; */
   display: flex;
@@ -48,6 +50,23 @@
   margin-right: 2rem;
   width: 1rem;
   height: 1rem;
+}
+
+.tree-view__node-checkbox {
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 2rem;
+  width: 1rem;
+  height: 1rem;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .triangle {
